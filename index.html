@@ -32,29 +32,80 @@
             line-height: 1.25;
         }
 
-        table {
-            text-align: center;
-            font-family: Futura, 'Open Sans', sans-serif;
-            width: 100%;
-        }
-
         .divider {
             height: 10px;
             background: linear-gradient(to right, #81DAF5 0%, #01A9DB 50%, #086A87 100%);
             width: 100%;
             margin: 5px auto 15px auto;
-            clear: both;
+        }
+
+        .columns {
+            display: flex;
+            flex-wrap: wrap;
         }
 
         .column {
-            width: 33.2%;
-            float: left;
+            flex: 1 1 33.2%;
             padding: 0.5%;
             box-sizing: border-box;
-            font-size: 1.7vw;
+            font-size: clamp(1rem, 1.7vw, 1.5rem);
+            text-align: left;
         }
 
+        /* Visually-hidden but screen-reader-accessible text */
+        .visually-hidden {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+
+        .name-display {
+            text-align: center;
+            font-family: Futura, 'Open Sans', sans-serif;
+            padding-top: 5px;
+        }
+
+        .name-row {
+            display: flex;
+            justify-content: center;
+        }
+
+        .name-row-first {
+            font-size: clamp(2.5rem, 12.9vw, 9.6rem);
+            line-height: clamp(2.6rem, 13vw, 9.8rem);
+        }
+
+        .name-row-last {
+            font-size: clamp(2rem, 10.3vw, 7.8rem);
+            line-height: clamp(2.2rem, 11vw, 8.3rem);
+        }
+
+        /* Color classes for Header Letters */
+        .c-light { color: #81DAF5; }
+        .c-medium { color: #01A9DB; }
+        .c-dark { color: #086A87; }
+
+        /* Specific selection colors for Header Letters */
+        .c-light::selection { background: #81DAF5; color: white; }
+        .c-medium::selection { background: #01A9DB; color: white; }
+        .c-dark::selection { background: #086A87; color: white; }
+
+        /* Selection styles for Columns */
+        .column:nth-child(1) ::selection { background: #81DAF5; color: white; }
+        .column:nth-child(2) ::selection { background: #01A9DB; color: white; }
+        .column:nth-child(3) ::selection { background: #086A87; color: white; }
+
         h1 {
+            margin: 0;
+        }
+
+        h2 {
             font-size: 150%;
             text-align: center;
             font-family: Futura, 'Open Sans', sans-serif;
@@ -69,7 +120,7 @@
         a:link, a:visited {
             color: #01A9DB;
             text-decoration: none;
-            transition: all 0.3s ease-in-out;
+            transition: color 0.3s ease-in-out;
         }
         a:hover, a:active {
             text-decoration: underline;
@@ -78,73 +129,51 @@
 
         @media (max-width: 768px) {
             .column {
-                width: 100% !important;
-                float: none !important;
-                font-size: 1.1rem !important;
-                padding: 10px 2%;
+                flex: 1 1 100%;
+                padding: 7px 2%;
             }
-            table {
-                font-size: 11vw !important;
-            }
-        }
-
-        .clearfix:after {
-            content: "";
-            display: table;
-            clear: both;
         }
     </style>
 </head>
 
 <body>
 
-<div class="header">
-    <table cellspacing="0" cellpadding="0" style="font-size:12.9vw; line-height:13vw;">
-        <tr>
-            <td style="color:#81DAF5;">A</td>
-            <td style="color:#81DAF5;">A</td>
-            <td style="color:#01A9DB;">R</td>
-            <td style="color:#086A87;">O</td>
-            <td style="color:#086A87;">N</td>
-        </tr>
-    </table>
-    <table cellspacing="0" cellpadding="0" style="font-size:10.3vw; line-height:11vw;">
-        <tr>
-            <td style="color:#81DAF5;">M</td>
-            <td style="color:#81DAF5;">E</td>
-            <td style="color:#81DAF5;">N</td>
-            <td style="color:#01A9DB;">D</td>
-            <td style="color:#01A9DB;">E</td>
-            <td style="color:#01A9DB;">L</td>
-            <td style="color:#086A87;">S</td>
-            <td style="color:#086A87;">O</td>
-            <td style="color:#086A87;">N</td>
-        </tr>
-    </table>
-</div>
+<header class="header">
+    <h1>
+        <span class="visually-hidden">Aaron Mendelson</span>
+        <div class="name-display" aria-hidden="true">
+            <div class="name-row name-row-first">
+                <span class="c-light">A</span><span class="c-light">A</span><span class="c-medium">R</span><span class="c-dark">O</span><span class="c-dark">N</span>
+            </div>
+            <div class="name-row name-row-last">
+                <span class="c-light">M</span><span class="c-light">E</span><span class="c-light">N</span><span class="c-medium">D</span><span class="c-medium">E</span><span class="c-medium">L</span><span class="c-dark">S</span><span class="c-dark">O</span><span class="c-dark">N</span>
+            </div>
+        </div>
+    </h1>
+</header>
 
 <div class="divider"></div>
 
-<div class="clearfix">
-    <div class="column">
-        <h1 style="color:#81DAF5;">[ABOUT]</h1>
-        <p>Aaron Mendelson is a journalist based in Los Angeles. He does data and investigative reporting, and has worked at The Trace, the Center for Public Integrity and KPCC.</p>
-        <p>He's covered voting, the housing crisis, police shootings, money in politics, sexual misconduct and other issues.</p>
-    </div>
+<div class="columns">
+    <section class="column">
+        <h2 style="color:#81DAF5;">[ABOUT]</h2>
+        <p>Aaron Mendelson is a journalist based in Los Angeles. He specializes in data and investigative reporting.</p>
+        <p>His award-winning work has spanned beats, with an emphasis on finding the untold buried inside databases and public records.</p>
+    </section>
 
-    <div class="column">
-        <h1 style="color:#01A9DB;">[WORK]</h1>
-        <p>His work includes <a href="https://publicintegrity.org/politics/high-courts-high-stakes/how-republicans-flipped-americas-state-supreme-courts/">a deep dive</a> into the awesome, overlooked power of state supreme courts, <a href="https://laist.com/projects/2020/pama/">an investigation</a> into a hidden empire of rental housing, and <a href="https://www.thetrace.org/2025/09/gun-suicide-data-older-americans-men/">a look at</a> the public health crisis of suicide among older Americans.</p>
-        <p>In 2012, Aaron wrote <a href="https://lernerbooks.com/shop/show/11870?srsltid=AfmBOoojwiaaL3nB-R_25GBW0JvnmC1lprW3DvjPF0a6-e9fkWsDyABH">a book</a> about the history of R&B for teens.</p>
-    </div>
+    <section class="column">
+        <h2 style="color:#01A9DB;">[WORK]</h2>
+        <p>Aaron has worked at The Trace, the Center for Public Integrity and KPCC.</p>
+        <p>His work includes <a href="https://publicintegrity.org/politics/high-courts-high-stakes/how-republicans-flipped-americas-state-supreme-courts/">a deep dive</a> into the awesome, overlooked power of state supreme courts, <a href="https://laist.com/projects/2020/pama/">an investigation</a> into a hidden empire of rental housing, and <a href="https://www.thetrace.org/2025/09/gun-suicide-data-older-americans-men/">a look at</a> the crisis of suicide among older Americans.</p>
+    </section>
 
-    <div class="column">
-        <h1 style="color:#086A87;">[CONTACT]</h1>
+    <section class="column">
+        <h2 style="color:#086A87;">[CONTACT]</h2>
         <p>Get in touch:</p>
+        <p><a href="mailto:aaron@aaronmendelson.com">email</a></p>
         <p><a href="https://www.linkedin.com/in/aaron-mendelson-00641224/">LinkedIn</a></p>
-        <p><a href="https://bsky.app/profile/amendelson.bsky.social"><span style="color:#01A9DB;">@amendelson.bsky.social</span></a></p>
-        <p>aaronATaaronmendelsonDOTcom</p>
-    </div>
+        <p><a href="https://bsky.app/profile/amendelson.bsky.social">Bluesky</a></p>
+    </section>
 </div>
 
 </body>
